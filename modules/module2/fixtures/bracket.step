@@ -1,0 +1,16 @@
+ISO-10303-21;
+HEADER;
+FILE_DESCRIPTION(('CNC SmartCore Demo Bracket STEP AP214'),'2;1');
+FILE_NAME('bracket.step','2026-10-17T00:00:00',('PareekshithMK'),('Department of Mechanical Engineering'),'CNC SmartCore STEP Generator','OpenCASCADE','');
+FILE_SCHEMA(('AUTOMOTIVE_DESIGN { 1 0 10303 214 1 1 1 1 }'));
+ENDSEC;
+DATA;
+#10=APPLICATION_CONTEXT('core data for automotive mechanical design processes');
+#11=APPLICATION_PROTOCOL_DEFINITION('draft international standard','automotive_design',1999,#10);
+#12=PRODUCT_CONTEXT('part definition',#10,'mechanical');
+#13=PRODUCT('bracket','bracket','demo bracket for CNC SmartCore',(#12));
+#14=PRODUCT_DEFINITION_FORMATION('1','first version',#13);
+#15=PRODUCT_DEFINITION('design','demo',#14,#12);
+#16=PRODUCT_DEFINITION_SHAPE('','',#15);
+ENDSEC;
+END-ISO-10303-21;

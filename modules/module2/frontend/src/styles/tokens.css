@@ -1,0 +1,69 @@
+/* CNC SmartCore Design Tokens - Shop-floor Precision */
+:root {
+  /* Dark Theme (Default) */
+  --canvas: #0F1214;
+  --surface: #161A1D;
+  --raised: #1E2326;
+  --viewport: #0B0D0F;
+  --border: #2B3237;
+  --border-strong: #3A444B;
+  --text: #E8ECEE;
+  --text-2: #A7B1B7;
+  --text-muted: #8A959C;
+  --accent: #FF7A1A;
+  --accent-hover: #FF9040;
+  --accent-fg: #14100C;
+  --info: #4DA3D9;
+  --success: #3FB67A;
+  --warning: #E8B23A;
+  --danger: #EF5B5B;
+  --focus: #4DA3D9;
+
+  /* Toolpath / Viewer Tokens */
+  --tp-rapid: #8FA3B0;
+  --tp-feed: #2EC4B6;
+  --tp-plunge: #FF7A1A;
+  --tp-played: rgba(255, 255, 255, 0.9);
+  --part: #9AA7B0;
+  --stock: #5C6870;
+  --tool: #E8B23A;
+
+  /* shadcn/ui variable mappings */
+  --background: var(--canvas);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--raised);
+  --popover-foreground: var(--text);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-fg);
+  --secondary: var(--raised);
+  --secondary-foreground: var(--text);
+  --muted: var(--raised);
+  --muted-foreground: var(--text-muted);
+  --destructive: var(--danger);
+  --destructive-foreground: #FFFFFF;
+  --input: var(--border-strong);
+  --ring: var(--focus);
+  --radius: 0.25rem;
+}
+
+[data-theme="light"], .light {
+  --canvas: #F3F5F6;
+  --surface: #FFFFFF;
+  --raised: #FFFFFF;
+  --viewport: #E4E8EA;
+  --border: #D5DBDF;
+  --border-strong: #B6BFC5;
+  --text: #14191C;
+  --text-2: #44505A;
+  --text-muted: #5F6B73;
+  --accent: #D95F00;
+  --accent-hover: #B85000;
+  --accent-fg: #FFFFFF;
+  --info: #1B6FA8;
+  --success: #1E7F52;
+  --warning: #8A5F00;
+  --danger: #C23030;
+  --focus: #1B6FA8;
+}

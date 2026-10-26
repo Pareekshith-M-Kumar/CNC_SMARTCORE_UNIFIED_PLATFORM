@@ -1,0 +1,45 @@
+@import "./tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-canvas text-text font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Shop-floor Drawing sheet corner ticks */
+.corner-ticks {
+  position: relative;
+}
+.corner-ticks::before,
+.corner-ticks::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  pointer-events: none;
+}
+.corner-ticks::before {
+  top: 0;
+  left: 0;
+  border-top: 1px solid var(--border-strong);
+  border-left: 1px solid var(--border-strong);
+}
+.corner-ticks::after {
+  bottom: 0;
+  right: 0;
+  border-bottom: 1px solid var(--border-strong);
+  border-right: 1px solid var(--border-strong);
+}
+
+/* Tabular numbers for engineering values */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

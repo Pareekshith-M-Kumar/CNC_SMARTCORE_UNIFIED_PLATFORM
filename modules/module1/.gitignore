@@ -1,0 +1,44 @@
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Java / Maven
+**/target/
+*.class
+
+# Node
+**/node_modules/
+**/dist/
+
+# Python
+**/__pycache__/
+*.py[cod]
+**/.pytest_cache/
+**/.venv/
+**/venv/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Docker / local data
+docker-data/
+
+# Credentials / certificates / keys
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+credentials.json
+service-account*.json

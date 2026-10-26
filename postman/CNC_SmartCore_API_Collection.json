@@ -1,0 +1,267 @@
+{
+  "info": {
+    "name": "CNC SmartCore Unified Platform API Collection",
+    "_postman_id": "8f8b8a1c-99c1-4b1a-9694-811c79c88e91",
+    "description": "Comprehensive Postman Collection for testing CNC SmartCore Module 1, Module 2, and Bridge APIs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "m2_url",
+      "value": "http://localhost:8080/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "m1_url",
+      "value": "http://localhost:8082/api",
+      "type": "string"
+    },
+    {
+      "key": "gateway_url",
+      "value": "http://localhost:5173",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01. Auth & Profiles",
+      "item": [
+        {
+          "name": "Get Current User Profile (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Dev-Role", "value": "admin", "type": "text" }
+            ],
+            "url": { "raw": "{{m2_url}}/profile/me", "host": ["{{m2_url}}"], "path": ["profile", "me"] }
+          }
+        },
+        {
+          "name": "Unauthenticated Profile (Expected 401)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{m2_url}}/profile/me", "host": ["{{m2_url}}"], "path": ["profile", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "02. Pre-Manufacturing (Module 2)",
+      "item": [
+        {
+          "name": "List Materials Catalog",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Dev-Role", "value": "designer", "type": "text" }
+            ],
+            "url": { "raw": "{{m2_url}}/materials", "host": ["{{m2_url}}"], "path": ["materials"] }
+          }
+        },
+        {
+          "name": "Recommend Material (Rule-Based rb-1.0)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" },
+              { "key": "X-Dev-Role", "value": "designer", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partVolumeCm3\": 150.0,\n  \"targetStrengthMpa\": 310.0,\n  \"maxWeightKg\": 0.8,\n  \"budgetPriority\": \"BALANCED\"\n}"
+            },
+            "url": { "raw": "{{m2_url}}/materials/recommend", "host": ["{{m2_url}}"], "path": ["materials", "recommend"] }
+          }
+        },
+        {
+          "name": "List CAD Assets",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Dev-Role", "value": "designer", "type": "text" }
+            ],
+            "url": { "raw": "{{m2_url}}/cad-assets", "host": ["{{m2_url}}"], "path": ["cad-assets"] }
+          }
+        },
+        {
+          "name": "Run Toolpath Simulation",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "X-Dev-Role", "value": "cam_engineer", "type": "text" }
+            ],
+            "url": { "raw": "{{m2_url}}/cam/jobs/60d62ea9-c1db-4b24-8dbe-b08af6ecca90/simulate", "host": ["{{m2_url}}"], "path": ["cam", "jobs", "60d62ea9-c1db-4b24-8dbe-b08af6ecca90", "simulate"] }
+          }
+        },
+        {
+          "name": "Path Traversal Test (Expected 404/403)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Dev-Role", "value": "admin", "type": "text" }
+            ],
+            "url": { "raw": "{{m2_url}}/storage/cad-originals/../../application.yml", "host": ["{{m2_url}}"], "path": ["storage", "cad-originals", "..", "..", "application.yml"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "03. Orders & Shipments (Core)",
+      "item": [
+        {
+          "name": "Create Manufacturing Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" },
+              { "key": "X-Dev-Role", "value": "admin", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"approvalId\": \"34a89117-a0c4-4e19-815e-a1c16347a83f\",\n  \"customerNotes\": \"Priority aerospace bracket run\",\n  \"quantity\": 1\n}"
+            },
+            "url": { "raw": "{{m2_url}}/orders", "host": ["{{m2_url}}"], "path": ["orders"] }
+          }
+        },
+        {
+          "name": "Create Shipment (In PREPARING)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" },
+              { "key": "X-Dev-Role", "value": "operator", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"86515a4b-f569-4dc6-8673-2551d9d5ebef\",\n  \"trackingNumber\": \"TRK-2026-9901\",\n  \"carrier\": \"FastFreight Air\"\n}"
+            },
+            "url": { "raw": "{{m2_url}}/shipments", "host": ["{{m2_url}}"], "path": ["shipments"] }
+          }
+        },
+        {
+          "name": "Transition Shipment to SHIPPED",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" },
+              { "key": "X-Dev-Role", "value": "operator", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetStatus\": \"SHIPPED\"\n}"
+            },
+            "url": { "raw": "{{m2_url}}/shipments/SHP-2026-1001/transition", "host": ["{{m2_url}}"], "path": ["shipments", "SHP-2026-1001", "transition"] }
+          }
+        },
+        {
+          "name": "Reject Unauthorized Customer Transition (Expected 403)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" },
+              { "key": "X-Dev-Role", "value": "customer", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetStatus\": \"SHIPPED\"\n}"
+            },
+            "url": { "raw": "{{m2_url}}/shipments/SHP-2026-1001/transition", "host": ["{{m2_url}}"], "path": ["shipments", "SHP-2026-1001", "transition"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "04. Asset Bridge & Machine Linking",
+      "item": [
+        {
+          "name": "Register Delivered Asset",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "X-Dev-Role", "value": "customer", "type": "text" }
+            ],
+            "url": { "raw": "{{m2_url}}/assets/ASSET-000123/register", "host": ["{{m2_url}}"], "path": ["assets", "ASSET-000123", "register"] }
+          }
+        },
+        {
+          "name": "Link Asset to Module 1 Machine (CNC-001)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" },
+              { "key": "X-Dev-Role", "value": "admin", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"machineCode\": \"CNC-001\"\n}"
+            },
+            "url": { "raw": "{{m2_url}}/assets/ASSET-000123/link-machine", "host": ["{{m2_url}}"], "path": ["assets", "ASSET-000123", "link-machine"] }
+          }
+        },
+        {
+          "name": "Duplicate Link Attempt (Expected 409 Conflict)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" },
+              { "key": "X-Dev-Role", "value": "admin", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"machineCode\": \"CNC-002\"\n}"
+            },
+            "url": { "raw": "{{m2_url}}/assets/ASSET-000123/link-machine", "host": ["{{m2_url}}"], "path": ["assets", "ASSET-000123", "link-machine"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "05. Shop-Floor Telemetry (Module 1)",
+      "item": [
+        {
+          "name": "List CNC Machine Fleet",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{m1_url}}/machines", "host": ["{{m1_url}}"], "path": ["machines"] }
+          }
+        },
+        {
+          "name": "Get Machine Telemetry & Asset Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{m1_url}}/machines/1", "host": ["{{m1_url}}"], "path": ["machines", "1"] }
+          }
+        },
+        {
+          "name": "List Active Alarms & Alerts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{m1_url}}/alerts", "host": ["{{m1_url}}"], "path": ["alerts"] }
+          }
+        },
+        {
+          "name": "Acknowledge Alert (Operator/Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer mock-token-operator", "type": "text" }
+            ],
+            "url": { "raw": "{{m1_url}}/alerts/1/acknowledge", "host": ["{{m1_url}}"], "path": ["alerts", "1", "acknowledge"] }
+          }
+        },
+        {
+          "name": "List Cutting Tools & Wear Life",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{m1_url}}/tools", "host": ["{{m1_url}}"], "path": ["tools"] }
+          }
+        }
+      ]
+    }
+  ]
+}

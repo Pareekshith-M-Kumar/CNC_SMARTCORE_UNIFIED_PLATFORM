@@ -1,0 +1,55 @@
+# Dependencies & builds
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Java / Maven
+target/
+*.class
+.mvn/wrapper/maven-wrapper.jar
+*.jar
+*.war
+storage-data/
+backend/storage-data/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+build/
+develop-eggs/
+eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.ruff_cache/
+
+# Environment and secrets
+.env
+.env*.local
+application-local.yml
+application-local.properties
+*.pem
+*.key
+*.p12
+
+# Supabase
+supabase/.temp/
+.supabase/
+
+# IDE & OS
+.idea/
+*.iml
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db

@@ -1,0 +1,148 @@
+# ==============================================================================
+# CNC SmartCore: Unified Platform .gitignore
+# Prevents accidental commits of secrets, specifications, docs, and build outputs
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Project Specifications & Architectural Documents (Excluded from Public Repo)
+# ------------------------------------------------------------------------------
+docs/
+**/docs/
+*.pdf
+*.docx
+*.doc
+*.pptx
+*.ppt
+*.xlsx
+*.xls
+*.md 
+
+# Core Markdown specifications
+[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
+**/[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
+[Vv][Ii][Bb][Ee]_[Cc][Oo][Dd][Ii][Nn][Gg].[Mm][Dd]
+**/[Vv][Ii][Bb][Ee]_[Cc][Oo][Dd][Ii][Nn][Gg].[Mm][Dd]
+[Aa][Rr][Cc][Hh][Ii][Tt][Ee][Cc][Tt][Uu][Rr][Ee].[Mm][Dd]
+**/[Aa][Rr][Cc][Hh][Ii][Tt][Ee][Cc][Tt][Uu][Rr][Ee].[Mm][Dd]
+[Dd][Ee][Ss][Ii][Gg][Nn]_[Ss][Yy][Ss][Tt][Ee][Mm].[Mm][Dd]
+**/[Dd][Ee][Ss][Ii][Gg][Nn]_[Ss][Yy][Ss][Tt][Ee][Mm].[Mm][Dd]
+[Ss][Yy][Ss][Tt][Ee][Mm]_[Dd][Ee][Ss][Ii][Gg][Nn].[Mm][Dd]
+**/[Ss][Yy][Ss][Tt][Ee][Mm]_[Dd][Ee][Ss][Ii][Gg][Nn].[Mm][Dd]
+[Pp][Rr][Dd].[Mm][Dd]
+**/[Pp][Rr][Dd].[Mm][Dd]
+
+# ------------------------------------------------------------------------------
+# 2. Secrets, API Keys & Credentials (CRITICAL - NEVER COMMIT)
+# ------------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.pkcs12
+*.cer
+*.crt
+id_rsa*
+id_ed25519*
+*credential*
+*secret*
+*password*
+credentials.json
+auth.json
+token.json
+oauth-keys.json
+mcp_config.json
+**/mcp_config.json
+.agents/mcp_config.json
+**/.agents/mcp_config.json
+hooks.json
+**/.agents/hooks.json
+
+# Database dumps, backups & temp files
+*.dump
+*.backup
+*.sql.bak
+supabase/.temp/
+supabase/.branches/
+
+# ------------------------------------------------------------------------------
+# 3. Node.js & Frontend Build Outputs
+# ------------------------------------------------------------------------------
+node_modules/
+dist/
+dist-ssr/
+build/
+.npm
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.log
+
+# ------------------------------------------------------------------------------
+# 4. Java / Maven Build Outputs
+# ------------------------------------------------------------------------------
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/wrapper/maven-wrapper.jar
+.project
+.classpath
+.settings/
+.factorypath
+tools/
+
+# ------------------------------------------------------------------------------
+# 5. Python / Machine Learning Virtualenvs & Caches
+# ------------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.ruff_cache/
+
+# ------------------------------------------------------------------------------
+# 6. Local Storage, Media & Temp Working Data
+# ------------------------------------------------------------------------------
+module1-src/
+module2-src/
+storage-data/
+**/storage-data/
+*.tmp
+*.temp
+
+# ------------------------------------------------------------------------------
+# 7. OS & IDE Specific Files
+# ------------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

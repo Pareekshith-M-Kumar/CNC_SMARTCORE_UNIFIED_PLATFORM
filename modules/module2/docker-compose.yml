@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  geometry-service:
+    build:
+      context: ./geometry-service
+      dockerfile: Dockerfile
+    container_name: cnc-geometry-service
+    ports:
+      - "8000:8000"
+    environment:
+      - INTERNAL_API_KEY=${INTERNAL_API_KEY:-dev-internal-secret-key-12345}
+      - ENVIRONMENT=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cnc-smartcore-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+      - APP_GEOMETRY_URL=http://geometry-service:8000
+      - APP_GEOMETRY_INTERNAL_KEY=${INTERNAL_API_KEY:-dev-internal-secret-key-12345}
+      - APP_CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173
+    depends_on:
+      geometry-service:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cnc-smartcore-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  default:
+    name: cnc-smartcore-network

@@ -1,0 +1,35 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  datasource:
+    # Connect directly to your Supabase PostgreSQL instance (or pooler port 6543)
+    url: ${SUPABASE_DB_URL:jdbc:postgresql://db.tlqdmyzpooiadaqnzowc.supabase.co:5432/postgres?sslmode=require}
+    username: ${SUPABASE_DB_USERNAME:postgres}
+    password: ${SUPABASE_DB_PASSWORD:CNCdatda45#@}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      idle-timeout: 30000
+      max-lifetime: 60000
+      connection-timeout: 10000
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: false
+        default_schema: public
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+app:
+  jwt:
+    jwks-url: https://tlqdmyzpooiadaqnzowc.supabase.co/auth/v1/.well-known/jwks.json
+    issuer: https://tlqdmyzpooiadaqnzowc.supabase.co/auth/v1
+    audience: authenticated
+    secret: ${SUPABASE_JWT_SECRET:}
